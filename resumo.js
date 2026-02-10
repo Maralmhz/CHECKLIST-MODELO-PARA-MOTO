@@ -56,100 +56,86 @@
       osNumero2.textContent = document.getElementById('osNumero').textContent;
     }
 
-    document.getElementById('rNomeCliente').textContent = document.getElementById('nome_cliente')?.value || '-';
-    document.getElementById('rCpfCnpj').textContent = document.getElementById('cpf_cnpj')?.value || '-';
-    document.getElementById('rCelular').textContent = document.getElementById('celular_cliente')?.value || '-';
+    // Dados do cliente
+    document.getElementById('rNomeCliente').textContent = document.getElementById('nomecliente')?.value || '-';
+    document.getElementById('rCelular').textContent = document.getElementById('celular')?.value || '-';
 
+    // Dados da moto
     document.getElementById('rModelo').textContent = document.getElementById('modelo')?.value || '-';
     document.getElementById('rPlaca').textContent = (document.getElementById('placa')?.value || '-').toUpperCase();
-    document.getElementById('rChassi').textContent = document.getElementById('chassi')?.value || '-';
-    const kmEntrada = document.getElementById('km_entrada')?.value || '';
+    const kmEntrada = document.getElementById('kmentrada')?.value || '';
     document.getElementById('rKmEntrada').textContent = kmEntrada ? `${kmEntrada} km` : '-';
 
-    const combSelect = document.getElementById('combustivel');
-    const combTexto = combSelect && combSelect.selectedIndex >= 0 ? combSelect.options[combSelect.selectedIndex].text : '-';
-    document.getElementById('rCombustivel').textContent = combTexto;
-
-    const dataVal = document.getElementById('data')?.value;
-    const horaVal = document.getElementById('hora')?.value;
-    const dataFmt = dataVal ? dataVal.split('-').reverse().join('/') : '--/--/----';
-    document.getElementById('rEntradaDataHora').textContent = `${dataFmt} às ${horaVal || '--:--'}`;
-
+    // Serviços solicitados
     document.getElementById('rServicos').textContent = document.getElementById('servicos')?.value || '-';
 
+    // Observações
     const obs = document.getElementById('obsInspecao')?.value || '-';
     const rObs = document.getElementById('rObsInspecao');
     if (rObs) rObs.textContent = obs;
 
+    // Checklist de inspeção (marcacoes)
     const areaBadges = document.getElementById('rChecklistBadges');
     areaBadges.innerHTML = '';
 
-    const checkboxesMarcados = document.querySelectorAll('#checklistForm input[type="checkbox"]:checked');
-    if (checkboxesMarcados.length === 0) {
-      areaBadges.innerHTML = '<span style="color:#999; font-size:11px;">Nenhum item inspecionado/marcado.</span>';
-    } else {
-      checkboxesMarcados.forEach(cb => {
-        let textoLabel = cb.value;
-        const labelTag = document.querySelector(`label[for="${cb.id}"]`);
-        if (labelTag) {
-          textoLabel = labelTag.textContent;
-        } else if (cb.nextElementSibling && cb.nextElementSibling.tagName === 'LABEL') {
-          textoLabel = cb.nextElementSibling.textContent;
-        }
-        textoLabel = textoLabel.trim();
-
+    if (window.marcacoes && Object.keys(window.marcacoes).length > 0) {
+      Object.entries(window.marcacoes).forEach(([item, estado]) => {
         const span = document.createElement('span');
-        const palavrasRuim = ['TRINCADO', 'AMASSADO', 'RISCADO', 'QUEBRADO', 'DANIFICADO', 'FALTANDO', 'RUIM'];
-        const ehRuim = palavrasRuim.some(p => textoLabel.toUpperCase().includes(p));
+        const ehRuim = ['RUIM', 'QUEBRADO', 'DANIFICADO', 'CARECA', 'EMPENADA', 'TRINCADA', 'TRAVANDO', 'ACABADAS', 'EMPENADO', 
+                        'FROUXA', 'RESSECADA', 'DENTES QUEBRADOS', 'FROUXO', 'SEM FUNCIONAR', 'FRACA', 'DESCARREGADA', 
+                        'NÃO FUNCIONA', 'COM DEFEITO', 'APAGADO', 'EMENDAS', 'EXPOSTA', 'VAZANDO', 'TRAVADA', 'COM FOLGA',
+                        'DESGASTADO', 'DESGASTADAS', 'RISCADO', 'RASGADAS', 'RASGADO', 'BAIXO', 'VAZIO', 'LEVE', 'SEVERO',
+                        'BARULHENTO', 'FURADO', 'DIFICULDADE', 'NÃO LIGA', 'AMASSADO', 'NÃO TEM'].includes(estado);
+        
         span.className = ehRuim ? 'os-badge no' : 'os-badge ok';
-        span.innerHTML = ehRuim ? `⚠️ ${textoLabel}` : `✅ ${textoLabel}`;
+        const itemFormatado = item.replace(/_/g, ' ').toUpperCase();
+        span.innerHTML = ehRuim ? `⚠️ ${itemFormatado}: ${estado}` : `✅ ${itemFormatado}: ${estado}`;
         areaBadges.appendChild(span);
       });
+    } else {
+      areaBadges.innerHTML = '<span style="color:#999; font-size:11px;">Nenhum item inspecionado/marcado.</span>';
     }
 
-    const origemPecas = document.getElementById('tabelaPecas');
+    // PEÇAS - Buscar do array window.pecas
     const destinoPecas = document.getElementById('rTabelaPecas');
     destinoPecas.innerHTML = '';
 
-    if (origemPecas && origemPecas.rows.length > 0) {
-      Array.from(origemPecas.rows).forEach(row => {
-        const desc = row.cells[0].textContent;
-        const valor = row.cells[1].textContent;
-        destinoPecas.innerHTML += `<tr><td>${desc}</td><td style="text-align:right;">${valor}</td></tr>`;
+    if (window.pecas && window.pecas.length > 0) {
+      destinoPecas.innerHTML = '<thead><tr><th>Descrição</th><th style="text-align:right;">Valor</th></tr></thead><tbody>';
+      window.pecas.forEach(peca => {
+        destinoPecas.innerHTML += `<tr><td>${peca.descricao}</td><td style="text-align:right;">R$ ${peca.valor.toFixed(2)}</td></tr>`;
       });
+      destinoPecas.innerHTML += '</tbody>';
     } else {
-      destinoPecas.innerHTML = '<tr><td colspan="2" style="color:#999; text-align:center;">-</td></tr>';
+      destinoPecas.innerHTML = '<tr><td colspan="2" style="color:#999; text-align:center;">Nenhuma peça adicionada</td></tr>';
     }
 
-    const origemServicos = document.getElementById('tabelaServicos');
+    // SERVIÇOS - Buscar do array window.servicos
     const destinoServicos = document.getElementById('rTabelaServicos');
     destinoServicos.innerHTML = '';
 
-    if (origemServicos && origemServicos.rows.length > 0) {
-      Array.from(origemServicos.rows).forEach(row => {
-        const desc = row.cells[0].textContent;
-        const valor = row.cells[1].textContent;
-        destinoServicos.innerHTML += `<tr><td>${desc}</td><td style="text-align:right;">${valor}</td></tr>`;
+    if (window.servicos && window.servicos.length > 0) {
+      destinoServicos.innerHTML = '<thead><tr><th>Descrição</th><th style="text-align:right;">Valor</th></tr></thead><tbody>';
+      window.servicos.forEach(servico => {
+        destinoServicos.innerHTML += `<tr><td>${servico.descricao}</td><td style="text-align:right;">R$ ${servico.valor.toFixed(2)}</td></tr>`;
       });
+      destinoServicos.innerHTML += '</tbody>';
     } else {
-      destinoServicos.innerHTML = '<tr><td colspan="2" style="color:#999; text-align:center;">-</td></tr>';
+      destinoServicos.innerHTML = '<tr><td colspan="2" style="color:#999; text-align:center;">Nenhum serviço adicionado</td></tr>';
     }
 
-    const totalGeral = document.getElementById('totalGeralFinal');
-    document.getElementById('rTotalGeral').textContent = totalGeral ? totalGeral.textContent : 'R$ 0,00';
+    // TOTAIS
+    const totalPecasCalc = window.pecas ? window.pecas.reduce((sum, p) => sum + p.valor, 0) : 0;
+    const totalServicosCalc = window.servicos ? window.servicos.reduce((sum, s) => sum + s.valor, 0) : 0;
+    const totalGeralCalc = totalPecasCalc + totalServicosCalc;
 
-    const totalPecas = document.getElementById('totalPecas');
-    const totalServicos = document.getElementById('totalServicos');
     const rTotalPecas = document.getElementById('rTotalPecas');
     const rTotalServicos = document.getElementById('rTotalServicos');
-    if (rTotalPecas) rTotalPecas.textContent = totalPecas ? totalPecas.textContent : 'R$ 0,00';
-    if (rTotalServicos) rTotalServicos.textContent = totalServicos ? totalServicos.textContent : 'R$ 0,00';
+    const rTotalGeral = document.getElementById('rTotalGeral');
 
-    const textoRodape = `Checklist gerado por ${document.getElementById('nome-oficina')?.textContent || 'Oficina'} CNPJ ${document.getElementById('cnpj-oficina')?.textContent || ''} - ${new Date().toLocaleString('pt-BR')}`;
-    const rod1 = document.getElementById('rodape-texto-1');
-    const rod2 = document.getElementById('rodape-texto-2');
-    if (rod1) rod1.textContent = textoRodape;
-    if (rod2) rod2.textContent = textoRodape;
+    if (rTotalPecas) rTotalPecas.textContent = 'R$ ' + totalPecasCalc.toFixed(2);
+    if (rTotalServicos) rTotalServicos.textContent = 'R$ ' + totalServicosCalc.toFixed(2);
+    if (rTotalGeral) rTotalGeral.textContent = 'R$ ' + totalGeralCalc.toFixed(2);
   }
 
   function imprimirResumo() {
@@ -163,7 +149,7 @@
 
     const opt = {
       margin: [10, 10, 10, 10],
-      filename: 'OS-' + document.getElementById('placa')?.value?.toUpperCase() + '_CHECKLIST.pdf',
+      filename: 'OS-' + (document.getElementById('placa')?.value?.toUpperCase() || 'MOTO') + '_CHECKLIST.pdf',
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: {
         scale: 2,
@@ -177,32 +163,7 @@
         format: 'a4',
         orientation: 'portrait'
       },
-      pagebreak: { mode: 'css', legacy: true },
-      pdfCallback: function (pdfObject) {
-        const totalPages = pdfObject.internal.getNumberOfPages();
-        const headerText = document.getElementById('nomeOficinaResumo')?.textContent || 'OFICINA';
-        const osNumero = document.getElementById('osNumero')?.textContent || '';
-        const footerText = document.getElementById('rodape-texto')?.textContent || 'Checklist gerado em ' + new Date().toLocaleString('pt-BR');
-
-        for (let i = 1; i <= totalPages; i++) {
-          pdfObject.setPage(i);
-          pdfObject.setFontSize(14);
-          pdfObject.setFont('helvetica', 'bold');
-          pdfObject.setTextColor(50, 50, 50);
-          pdfObject.text(headerText.toUpperCase(), 15, 12);
-          pdfObject.text('ORDEM DE SERVIÇO: ' + osNumero, 150, 12);
-
-          pdfObject.setDrawColor(200, 200, 200);
-          pdfObject.setLineWidth(0.5);
-          pdfObject.line(10, 15, 200, 15);
-
-          pdfObject.setFontSize(9);
-          pdfObject.setFont('helvetica', 'normal');
-          pdfObject.setTextColor(100, 100, 100);
-          pdfObject.text(footerText, 15, 287);
-          pdfObject.text('Página ' + i + ' de ' + totalPages, 170, 287);
-        }
-      }
+      pagebreak: { mode: 'css', legacy: true }
     };
 
     html2pdf().set(opt).from(elemento).save();
