@@ -22,5 +22,6 @@ window.OFICINA_CONFIG = {
 
     // === IDENTIDADE VISUAL ===
     logo: "logo.png",                                   // Caminho do logo
-    corPrimaria: "#e41616"                              // Cor principal (vermelho para motos)
+    corPrimaria: "#74020d
+"                              // Cor principal (vermelho para motos)
 };
