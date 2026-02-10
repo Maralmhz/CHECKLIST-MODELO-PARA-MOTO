@@ -4,8 +4,8 @@
    
    🎨 EDITE AS CORES AQUI:
    
-   Para trocar a cor principal do header, tabs, botões:
-   Mude o valor de --color-primary abaixo
+   --color-header: Cor do CABEÇALHO (topo da página)
+   --color-primary: Cor dos BOTÕES, TABS e DESTAQUES
    
    EXEMPLOS DE CORES:
    - Azul Escuro: #1e40af
@@ -15,11 +15,15 @@
    - Azul Royal: #2563eb
    - Vinho: #881337
    - Cinza Escuro: #374151
+   - Preto: #1a202c
    
    ============================================ */
 
 :root {
-    /* COR PRINCIPAL - Mude aqui! */
+    /* COR DO HEADER - Mude aqui! */
+    --color-header: #b90422;
+    
+    /* COR PRIMÁRIA (botões, tabs, destaques) - Mude aqui! */
     --color-primary: #b90422;
     
     /* Cores do sistema (não precisa mexer) */
