@@ -371,7 +371,7 @@
                     <div class="section-title">🔍 INSPEÇÃO VISUAL DA MOTO</div>
 
                     <div class="equip-section">
-                        <div class="equip-section-title">🔦 ILUMINAÇÃO E SINALIZAÇÃO</div>
+                        <div class="equip-section-title">💡 ILUMINAÇÃO E SINALIZAÇÃO</div>
                         <div class="inspecao-grid">
                             <div class="inspecao-item">
                                 <span class="inspecao-item-label">Farol Dianteiro</span>
@@ -918,9 +918,12 @@
     <script src="wizard.js"></script>
     
     <script>
-        // Marcações de inspeção
+        // Inicializar arrays globais
+        window.pecas = [];
+        window.servicos = [];
         window.marcacoes = {};
         
+        // Marcar estado dos botões de inspeção
         function marcarEstado(btn, item, estado) {
             const grupo = btn.parentElement;
             Array.from(grupo.children).forEach(b => b.classList.remove('ativo'));
@@ -982,10 +985,6 @@
             document.getElementById('valorItem').value = '';
             document.getElementById('descricaoItem').focus();
         }
-        
-        // Arrays para armazenar peças e serviços
-        window.pecas = [];
-        window.servicos = [];
         
         // Função para adicionar na tabela
         function adicionarNaTabela(descricao, valor, tipo) {
@@ -1059,26 +1058,29 @@
             document.getElementById('totalGeralFinal').textContent = 'R$ ' + totalGeral.toFixed(2);
         }
         
-        // Event listeners para Enter
+        // Event listeners para Enter - CORRIGIDO
         document.addEventListener('DOMContentLoaded', function() {
             const descInput = document.getElementById('descricaoItem');
             const valorInput = document.getElementById('valorItem');
             
-            // Enter na descrição -> foca no valor
-            descInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    valorInput.focus();
-                }
-            });
-            
-            // Enter no valor -> adiciona item
-            valorInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    processarAdicaoItem();
-                }
-            });
+            if (descInput && valorInput) {
+                // Enter na descrição -> foca no valor
+                descInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        valorInput.focus();
+                        valorInput.select();
+                    }
+                });
+                
+                // Enter no valor -> adiciona item
+                valorInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        processarAdicaoItem();
+                    }
+                });
+            }
         });
         
         // Função de salvar na nuvem
@@ -1086,7 +1088,7 @@
             const status = document.getElementById('saveStatus');
             status.style.display = 'inline-flex';
             status.className = 'save-status salvando';
-            status.textContent = '⌛ Salvando...';
+            status.textContent = '⏳ Salvando...';
             
             setTimeout(() => {
                 status.className = 'save-status salvo';
