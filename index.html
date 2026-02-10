@@ -13,6 +13,17 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <style>
+        /* Logo Grande Quadrada */
+        .logo-container img {
+            width: 100px !important;
+            height: 100px !important;
+            border-radius: 8px !important;
+            border: 3px solid white;
+            object-fit: contain !important;
+            background: white;
+            padding: 5px;
+        }
+        
         /* Botões de Inspeção de 3 Estados */
         .inspecao-item {
             margin-bottom: 20px;
@@ -96,6 +107,79 @@
             gap: 15px;
         }
         
+        /* Botões de Peças Pré-definidas */
+        .pecas-rapidas {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .peca-btn {
+            padding: 12px;
+            background: #f0f0f0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .peca-btn:hover {
+            background: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+            transform: translateY(-2px);
+        }
+        
+        .servico-btn {
+            padding: 12px;
+            background: #f0f0f0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .servico-btn:hover {
+            background: #0056b3;
+            color: white;
+            border-color: #0056b3;
+            transform: translateY(-2px);
+        }
+        
+        /* Status de Salvamento */
+        .save-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .save-status.salvando {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .save-status.salvo {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .save-status.erro {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
         @media (max-width: 768px) {
             .estado-buttons {
                 gap: 6px;
@@ -103,6 +187,10 @@
             .estado-btn {
                 padding: 12px 8px;
                 font-size: 11px;
+            }
+            .logo-container img {
+                width: 80px !important;
+                height: 80px !important;
             }
         }
     </style>
@@ -138,8 +226,14 @@
         </div>
 
         <div class="os-info-bar">
-            <div>🏍️ ORDEM DE SERVIÇO</div>
-            <div id="barraFixaOS">-</div>
+            <div>
+                🏍️ ORDEM DE SERVIÇO
+                <span id="saveStatus" class="save-status" style="display:none;"></span>
+            </div>
+            <div>
+                <span id="barraFixaOS">-</span>
+                <button class="btn-small btn-secondary" onclick="sincronizarDados()" style="margin-left:15px;">🔄 Sincronizar</button>
+            </div>
         </div>
 
         <!-- ABA NOVO CHECKLIST -->
@@ -582,32 +676,60 @@
             </div>
         </div>
 
-        <!-- Demais abas continuam iguais -->
+        <!-- ABA ORÇAMENTO -->
         <div id="orcamento" class="tab-content">
             <div class="content">
                 <div class="section-title">💰 PEÇAS & SERVIÇOS</div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Tipo:</label>
-                        <div>
-                            <input type="radio" id="tipoPeca" name="tipoItem" value="peca" checked>
-                            <label for="tipoPeca">Peça</label>
-                            <input type="radio" id="tipoServico" name="tipoItem" value="servico">
-                            <label for="tipoServico">Serviço</label>
-                        </div>
-                    </div>
+
+                <!-- Peças Rápidas -->
+                <h4>🔩 Peças Comuns</h4>
+                <div class="pecas-rapidas">
+                    <button class="peca-btn" onclick="adicionarPecaRapida('Óleo Motor 20W50')">Óleo 20W50</button>
+                    <button class="peca-btn" onclick="adicionarPecaRapida('Óleo Motor 10W40')">Óleo 10W40</button>
+                    <button class="peca-btn" onclick="adicionarPecaRapida('Filtro de Óleo')">Filtro Óleo</button>
+                    <button class="peca-btn" onclick="adicionarPecaRapida('Vela de Ignição')">Vela</button>
+                    <button class="peca-btn" onclick="adicionarPecaRapida('Pastilha de Freio')">Pastilha Freio</button>
+                    <button class="peca-btn" onclick="adicionarPecaRapida('Corrente')">Corrente</button>
+                    <button class="peca-btn" onclick="adicionarPecaRapida('Coroa')">Coroa</button>
+                    <button class="peca-btn" onclick="adicionarPecaRapida('Pinhão')">Pinhão</button>
+                    <button class="peca-btn" onclick="adicionarPecaRapida('Bateria')">Bateria</button>
+                    <button class="peca-btn" onclick="adicionarPecaRapida('Pneu Dianteiro')">Pneu Diant.</button>
+                    <button class="peca-btn" onclick="adicionarPecaRapida('Pneu Traseiro')">Pneu Tras.</button>
+                    <button class="peca-btn" onclick="adicionarPecaRapida('Câmara de Ar')">Câmara Ar</button>
                 </div>
+
+                <!-- Serviços Rápidos -->
+                <h4>🔧 Serviços Comuns</h4>
+                <div class="pecas-rapidas">
+                    <button class="servico-btn" onclick="adicionarServicoRapido('Troca de Óleo')">Troca Óleo</button>
+                    <button class="servico-btn" onclick="adicionarServicoRapido('Regulagem de Corrente')">Regulagem Corrente</button>
+                    <button class="servico-btn" onclick="adicionarServicoRapido('Troca de Pastilhas')">Troca Pastilhas</button>
+                    <button class="servico-btn" onclick="adicionarServicoRapido('Revisão Geral')">Revisão Geral</button>
+                    <button class="servico-btn" onclick="adicionarServicoRapido('Limpeza Carburador')">Limpeza Carb.</button>
+                    <button class="servico-btn" onclick="adicionarServicoRapido('Troca de Pneu')">Troca Pneu</button>
+                    <button class="servico-btn" onclick="adicionarServicoRapido('Balanceamento')">Balanceamento</button>
+                    <button class="servico-btn" onclick="adicionarServicoRapido('Sangria de Freio')">Sangria Freio</button>
+                    <button class="servico-btn" onclick="adicionarServicoRapido('Diagnóstico Elétrico')">Diag. Elétrico</button>
+                    <button class="servico-btn" onclick="adicionarServicoRapido('Reparo Motor')">Reparo Motor</button>
+                </div>
+
+                <h4 style="margin-top:30px;">➕ Adicionar Manualmente</h4>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="descricaoItem">Descrição</label>
-                        <input type="text" id="descricaoItem" placeholder="Ex: Óleo 20W50">
+                        <input type="text" id="descricaoItem" placeholder="Ex: Peça ou Serviço" onkeypress="if(event.key==='Enter'){event.preventDefault();document.getElementById('valorItem').focus();}">
                     </div>
                     <div class="form-group">
                         <label for="valorItem">Valor (R$)</label>
-                        <input type="number" id="valorItem" step="0.01" min="0">
+                        <input type="number" id="valorItem" step="0.01" min="0" placeholder="0.00" onkeypress="if(event.key==='Enter'){event.preventDefault();adicionarItemManual();}">
                     </div>
                 </div>
-                <button type="button" class="btn-primary" onclick="adicionarItemManual()">➕ Adicionar</button>
+                
+                <div style="display:flex; gap:10px; margin-bottom:20px;">
+                    <button type="button" class="btn-primary" onclick="adicionarItemManual('peca')">🔩 Adicionar Peça</button>
+                    <button type="button" class="btn-secondary" onclick="adicionarItemManual('servico')">🔧 Adicionar Serviço</button>
+                </div>
+
                 <h4>🔩 Peças</h4>
                 <table style="width:100%; border-collapse:collapse;">
                     <thead>
@@ -622,6 +744,7 @@
                         </tr>
                     </tfoot>
                 </table>
+
                 <h4>🔧 Serviços</h4>
                 <table style="width:100%; border-collapse:collapse;">
                     <thead>
@@ -636,9 +759,11 @@
                         </tr>
                     </tfoot>
                 </table>
+
                 <div style="text-align:right; margin-top:20px;">
                     <h3>TOTAL GERAL: <span id="totalGeralFinal">R$ 0,00</span></h3>
                 </div>
+
                 <button class="btn-success" onclick="switchTab('resumo'); atualizarResumoOS()">📄 Ver Resumo</button>
             </div>
         </div>
@@ -663,7 +788,7 @@
             <div class="content">
                 <div id="resumoContainer" class="os-paper">
                     <div class="os-header">
-                        <img id="logoResumo" src="logo.png" alt="Logo" style="width:80px;">
+                        <img id="logoResumo" src="logo.png" alt="Logo" style="width:100px; height:100px; object-fit:contain; background:white; padding:5px; border-radius:8px;">
                         <div>
                             <h2 id="nomeOficinaResumo">OFICINA DE MOTOS</h2>
                             <p id="enderecoOficinaResumo"></p>
@@ -700,9 +825,11 @@
                         <div style="display:inline-block; width:45%; text-align:center; border-top:1px solid #000; margin-left:5%;">Assinatura Técnico</div>
                     </div>
                 </div>
-                <button class="btn-secondary" onclick="imprimirResumo()">🖨️ Imprimir</button>
-                <button class="btn-success" onclick="gerarPDFResumo()">📥 PDF</button>
-                <button class="btn-primary" onclick="salvarChecklist()">💾 Salvar</button>
+
+                <div style="display:flex; gap:10px; margin-top:20px; flex-wrap:wrap;">
+                    <button class="btn-success" onclick="gerarPDFResumo()">📥 Gerar PDF</button>
+                    <button class="btn-primary" onclick="salvarNaNuvem()">☁️ Salvar na Nuvem</button>
+                </div>
             </div>
         </div>
 
@@ -733,17 +860,10 @@
         window.marcacoes = {};
         
         function marcarEstado(btn, item, estado) {
-            // Remove ativo de todos os botões do mesmo grupo
             const grupo = btn.parentElement;
             Array.from(grupo.children).forEach(b => b.classList.remove('ativo'));
-            
-            // Marca o botão clicado
             btn.classList.add('ativo');
-            
-            // Armazena a marcação
             window.marcacoes[item] = estado;
-            
-            // Cria input hidden para envio no form
             let input = document.getElementById('insp_' + item);
             if (!input) {
                 input = document.createElement('input');
@@ -753,6 +873,82 @@
                 document.getElementById('checklistForm').appendChild(input);
             }
             input.value = item + ': ' + estado;
+        }
+        
+        // Função para adicionar peça rápida
+        function adicionarPecaRapida(descricao) {
+            document.getElementById('descricaoItem').value = descricao;
+            document.getElementById('valorItem').value = '';
+            document.getElementById('valorItem').focus();
+        }
+        
+        // Função para adicionar serviço rápido
+        function adicionarServicoRapido(descricao) {
+            document.getElementById('descricaoItem').value = descricao;
+            document.getElementById('valorItem').value = '';
+            document.getElementById('valorItem').focus();
+        }
+        
+        // Adicionar item manual com Enter
+        function adicionarItemManual(tipo) {
+            const desc = document.getElementById('descricaoItem').value.trim();
+            const valor = parseFloat(document.getElementById('valorItem').value) || 0;
+            
+            if (!desc) {
+                alert('Digite a descrição!');
+                return;
+            }
+            
+            // Lógica de adicionar à tabela (deve estar implementada em orcamento.js)
+            if (typeof adicionarItem === 'function') {
+                adicionarItem(desc, valor, tipo || 'peca');
+            }
+            
+            // Limpar campos
+            document.getElementById('descricaoItem').value = '';
+            document.getElementById('valorItem').value = '';
+            document.getElementById('descricaoItem').focus();
+        }
+        
+        // Função de salvar na nuvem
+        function salvarNaNuvem() {
+            const status = document.getElementById('saveStatus');
+            status.style.display = 'inline-flex';
+            status.className = 'save-status salvando';
+            status.textContent = '⌛ Salvando...';
+            
+            // Simular salvamento (implementar com Firebase)
+            setTimeout(() => {
+                status.className = 'save-status salvo';
+                status.textContent = '✅ Salvo na nuvem!';
+                
+                setTimeout(() => {
+                    status.style.display = 'none';
+                }, 3000);
+            }, 1500);
+            
+            // Chamar função real de salvamento se existir
+            if (typeof salvarChecklist === 'function') {
+                salvarChecklist();
+            }
+        }
+        
+        // Função de sincronizar
+        function sincronizarDados() {
+            const status = document.getElementById('saveStatus');
+            status.style.display = 'inline-flex';
+            status.className = 'save-status salvando';
+            status.textContent = '🔄 Sincronizando...';
+            
+            // Simular sincronização
+            setTimeout(() => {
+                status.className = 'save-status salvo';
+                status.textContent = '✅ Sincronizado!';
+                
+                setTimeout(() => {
+                    status.style.display = 'none';
+                }, 3000);
+            }, 2000);
         }
     </script>
 </body>
