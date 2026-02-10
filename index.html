@@ -12,6 +12,100 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <style>
+        /* Botões de Inspeção de 3 Estados */
+        .inspecao-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border-left: 4px solid #ddd;
+        }
+        
+        .inspecao-item-label {
+            font-weight: 700;
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .estado-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+        
+        .estado-btn {
+            padding: 14px 10px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        
+        .estado-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .estado-btn.bom {
+            border-color: #27ae60;
+            color: #27ae60;
+        }
+        
+        .estado-btn.bom.ativo {
+            background: #27ae60;
+            color: white;
+            border-color: #27ae60;
+        }
+        
+        .estado-btn.ruim {
+            border-color: #f39c12;
+            color: #f39c12;
+        }
+        
+        .estado-btn.ruim.ativo {
+            background: #f39c12;
+            color: white;
+            border-color: #f39c12;
+        }
+        
+        .estado-btn.danificado {
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+        
+        .estado-btn.danificado.ativo {
+            background: #e74c3c;
+            color: white;
+            border-color: #e74c3c;
+        }
+        
+        .inspecao-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .estado-buttons {
+                gap: 6px;
+            }
+            .estado-btn {
+                padding: 12px 8px;
+                font-size: 11px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -91,90 +185,383 @@
                         </div>
                     </div>
 
-                    <div class="section-title">🔍 INSPEÇÃO DA MOTO</div>
+                    <div class="section-title">🔍 INSPEÇÃO VISUAL DA MOTO</div>
 
                     <div class="equip-section">
-                        <div class="equip-section-title">🔧 ITENS DE SEGURANÇA</div>
-                        <div class="checkbox-group">
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="retrovisores" name="equipamentos" value="RETROVISORES">
-                                <label for="retrovisores">Retrovisores</label>
+                        <div class="equip-section-title">🔦 ILUMINAÇÃO E SINALIZAÇÃO</div>
+                        <div class="inspecao-grid">
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Farol Dianteiro</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'farol_dianteiro', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'farol_dianteiro', 'RUIM')">⚠️ RUIM</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'farol_dianteiro', 'QUEBRADO')">❌ QUEBRADO</button>
+                                </div>
                             </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="farol" name="equipamentos" value="FAROL">
-                                <label for="farol">Farol/Lanterna</label>
+
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Lanterna Traseira</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'lanterna_tras', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'lanterna_tras', 'RUIM')">⚠️ RUIM</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'lanterna_tras', 'QUEBRADO')">❌ QUEBRADO</button>
+                                </div>
                             </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="buzina" name="equipamentos" value="BUZINA">
-                                <label for="buzina">Buzina</label>
+
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Setas/Piscas</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'setas', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'setas', 'RUIM')">⚠️ RUIM</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'setas', 'QUEBRADO')">❌ QUEBRADO</button>
+                                </div>
                             </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="setas" name="equipamentos" value="SETAS">
-                                <label for="setas">Setas/Piscas</label>
+
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Luz de Freio</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'luz_freio', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'luz_freio', 'RUIM')">⚠️ RUIM</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'luz_freio', 'QUEBRADO')">❌ QUEBRADO</button>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="equip-section">
-                        <div class="equip-section-title">⚙️ MECÂNICO</div>
-                        <div class="checkbox-group">
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="corrente" name="equipamentos" value="CORRENTE">
-                                <label for="corrente">Corrente/Relação</label>
+                        <div class="equip-section-title">🛞 PNEUS E RODAS</div>
+                        <div class="inspecao-grid">
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Pneu Dianteiro</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'pneu_dianteiro', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'pneu_dianteiro', 'DESGASTADO')">⚠️ DESGASTADO</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'pneu_dianteiro', 'CARECA')">❌ CARECA</button>
+                                </div>
                             </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="freio_d" name="equipamentos" value="FREIO DIANTEIRO">
-                                <label for="freio_d">Freio Dianteiro</label>
+
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Pneu Traseiro</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'pneu_traseiro', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'pneu_traseiro', 'DESGASTADO')">⚠️ DESGASTADO</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'pneu_traseiro', 'CARECA')">❌ CARECA</button>
+                                </div>
                             </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="freio_t" name="equipamentos" value="FREIO TRASEIRO">
-                                <label for="freio_t">Freio Traseiro</label>
+
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Roda Dianteira</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'roda_dianteira', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'roda_dianteira', 'EMPENADA')">⚠️ EMPENADA</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'roda_dianteira', 'TRINCADA')">❌ TRINCADA</button>
+                                </div>
                             </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="suspensao" name="equipamentos" value="SUSPENSÃO">
-                                <label for="suspensao">Suspensão</label>
+
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Roda Traseira</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'roda_traseira', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'roda_traseira', 'EMPENADA')">⚠️ EMPENADA</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'roda_traseira', 'TRINCADA')">❌ TRINCADA</button>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="equip-section">
-                        <div class="equip-section-title">🛞 PNEUS</div>
-                        <div class="checkbox-group">
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="pneu_d" name="equipamentos" value="PNEU DIANTEIRO OK">
-                                <label for="pneu_d">Pneu Dianteiro OK</label>
+                        <div class="equip-section-title">🛑 SISTEMA DE FREIOS</div>
+                        <div class="inspecao-grid">
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Freio Dianteiro</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'freio_dianteiro', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'freio_dianteiro', 'COM FOLGA')">⚠️ COM FOLGA</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'freio_dianteiro', 'TRAVANDO')">❌ TRAVANDO</button>
+                                </div>
                             </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="pneu_t" name="equipamentos" value="PNEU TRASEIRO OK">
-                                <label for="pneu_t">Pneu Traseiro OK</label>
+
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Freio Traseiro</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'freio_traseiro', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'freio_traseiro', 'COM FOLGA')">⚠️ COM FOLGA</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'freio_traseiro', 'TRAVANDO')">❌ TRAVANDO</button>
+                                </div>
+                            </div>
+
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Pastilhas de Freio</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'pastilhas', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'pastilhas', 'DESGASTADAS')">⚠️ DESGASTADAS</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'pastilhas', 'ACABADAS')">❌ ACABADAS</button>
+                                </div>
+                            </div>
+
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Disco de Freio</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'disco_freio', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'disco_freio', 'RISCADO')">⚠️ RISCADO</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'disco_freio', 'EMPENADO')">❌ EMPENADO</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="equip-section">
+                        <div class="equip-section-title">⚙️ TRANSMISSÃO</div>
+                        <div class="inspecao-grid">
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Corrente</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'corrente', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'corrente', 'FROUXA')">⚠️ FROUXA</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'corrente', 'RESSECADA')">❌ RESSECADA</button>
+                                </div>
+                            </div>
+
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Coroa/Pinhão</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'coroa_pinhao', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'coroa_pinhao', 'DESGASTADO')">⚠️ DESGASTADO</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'coroa_pinhao', 'DENTES QUEBRADOS')">❌ DENTES QUEBRADOS</button>
+                                </div>
+                            </div>
+
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Pedal de Câmbio</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'pedal_cambio', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'pedal_cambio', 'FROUXO')">⚠️ FROUXO</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'pedal_cambio', 'QUEBRADO')">❌ QUEBRADO</button>
+                                </div>
+                            </div>
+
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Embreagem</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'embreagem', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'embreagem', 'PATINANDO')">⚠️ PATINANDO</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'embreagem', 'SEM FUNCIONAR')">❌ SEM FUNCIONAR</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="equip-section">
+                        <div class="equip-section-title">⚡ SISTEMA ELÉTRICO</div>
+                        <div class="inspecao-grid">
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Bateria</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'bateria', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'bateria', 'FRACA')">⚠️ FRACA</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'bateria', 'DESCARREGADA')">❌ DESCARREGADA</button>
+                                </div>
+                            </div>
+
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Buzina</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'buzina', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'buzina', 'FRACA')">⚠️ FRACA</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'buzina', 'NÃO FUNCIONA')">❌ NÃO FUNCIONA</button>
+                                </div>
+                            </div>
+
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Painel/Indicadores</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'painel', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'painel', 'COM DEFEITO')">⚠️ COM DEFEITO</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'painel', 'APAGADO')">❌ APAGADO</button>
+                                </div>
+                            </div>
+
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Fiação</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'fiacao', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'fiacao', 'EMENDAS')">⚠️ EMENDAS</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'fiacao', 'EXPOSTA')">❌ EXPOSTA</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="equip-section">
+                        <div class="equip-section-title">🔧 SUSPENSÃO E DIREÇÃO</div>
+                        <div class="inspecao-grid">
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Suspensão Dianteira</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'suspensao_diant', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'suspensao_diant', 'VAZANDO')">⚠️ VAZANDO</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'suspensao_diant', 'TRAVADA')">❌ TRAVADA</button>
+                                </div>
+                            </div>
+
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Suspensão Traseira</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'suspensao_tras', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'suspensao_tras', 'VAZANDO')">⚠️ VAZANDO</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'suspensao_tras', 'TRAVADA')">❌ TRAVADA</button>
+                                </div>
+                            </div>
+
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Guidão/Direção</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'guidao', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'guidao', 'COM FOLGA')">⚠️ COM FOLGA</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'guidao', 'TRAVADO')">❌ TRAVADO</button>
+                                </div>
+                            </div>
+
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Manoplas/Punhos</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'manoplas', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'manoplas', 'DESGASTADAS')">⚠️ DESGASTADAS</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'manoplas', 'RASGADAS')">❌ RASGADAS</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="equip-section">
+                        <div class="equip-section-title">🪞 ESPELHOS E VISUAL</div>
+                        <div class="inspecao-grid">
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Retrovisor Esquerdo</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'retrovisor_esq', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'retrovisor_esq', 'FROUXO')">⚠️ FROUXO</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'retrovisor_esq', 'QUEBRADO')">❌ QUEBRADO</button>
+                                </div>
+                            </div>
+
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Retrovisor Direito</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'retrovisor_dir', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'retrovisor_dir', 'FROUXO')">⚠️ FROUXO</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'retrovisor_dir', 'QUEBRADO')">❌ QUEBRADO</button>
+                                </div>
+                            </div>
+
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Carenagem/Plásticos</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'carenagem', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'carenagem', 'RISCADO')">⚠️ RISCADO</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'carenagem', 'QUEBRADO')">❌ QUEBRADO</button>
+                                </div>
+                            </div>
+
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Banco</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'banco', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'banco', 'DESGASTADO')">⚠️ DESGASTADO</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'banco', 'RASGADO')">❌ RASGADO</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="equip-section">
+                        <div class="equip-section-title">🛠️ MOTOR E FLUIDOS</div>
+                        <div class="inspecao-grid">
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Nível de Óleo</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'nivel_oleo', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'nivel_oleo', 'BAIXO')">⚠️ BAIXO</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'nivel_oleo', 'VAZIO')">❌ VAZIO</button>
+                                </div>
+                            </div>
+
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Vazamentos</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'vazamentos', 'SEM VAZAMENTOS')">✅ SEM VAZAMENTOS</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'vazamentos', 'LEVE')">⚠️ LEVE</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'vazamentos', 'SEVERO')">❌ SEVERO</button>
+                                </div>
+                            </div>
+
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Escape/Ronco Motor</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'escape', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'escape', 'BARULHENTO')">⚠️ BARULHENTO</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'escape', 'FURADO')">❌ FURADO</button>
+                                </div>
+                            </div>
+
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Partida/Funcionamento</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'partida', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'partida', 'DIFICULDADE')">⚠️ DIFICULDADE</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'partida', 'NÃO LIGA')">❌ NÃO LIGA</button>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="equip-section">
                         <div class="equip-section-title">📦 ACESSÓRIOS</div>
-                        <div class="checkbox-group">
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="bau" name="equipamentos" value="BAÚ">
-                                <label for="bau">Baú</label>
+                        <div class="inspecao-grid">
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Baú</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'bau', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'bau', 'AMASSADO')">⚠️ AMASSADO</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'bau', 'NÃO TEM')">❌ NÃO TEM</button>
+                                </div>
                             </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="protetor" name="equipamentos" value="PROTETOR MOTOR">
-                                <label for="protetor">Protetor Motor</label>
+
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Protetor de Motor</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'protetor_motor', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'protetor_motor', 'RISCADO')">⚠️ RISCADO</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'protetor_motor', 'NÃO TEM')">❌ NÃO TEM</button>
+                                </div>
                             </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="manoplas" name="equipamentos" value="MANOPLAS">
-                                <label for="manoplas">Manoplas</label>
+
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Suporte Lateral</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'suporte_lateral', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'suporte_lateral', 'FROUXO')">⚠️ FROUXO</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'suporte_lateral', 'QUEBRADO')">❌ QUEBRADO</button>
+                                </div>
+                            </div>
+
+                            <div class="inspecao-item">
+                                <span class="inspecao-item-label">Suporte Central</span>
+                                <div class="estado-buttons">
+                                    <button type="button" class="estado-btn bom" onclick="marcarEstado(this, 'suporte_central', 'BOM')">✅ BOM</button>
+                                    <button type="button" class="estado-btn ruim" onclick="marcarEstado(this, 'suporte_central', 'FROUXO')">⚠️ FROUXO</button>
+                                    <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'suporte_central', 'NÃO TEM')">❌ NÃO TEM</button>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="obsInspecao">Observações</label>
-                        <textarea id="obsInspecao" name="obsInspecao" rows="3"></textarea>
+                        <label for="obsInspecao">Observações Gerais da Inspeção</label>
+                        <textarea id="obsInspecao" name="obsInspecao" rows="4" placeholder="Descreva outros detalhes importantes encontrados durante a inspeção..."></textarea>
                     </div>
 
-                    <div class="section-title">👤 CLIENTE</div>
+                    <div class="section-title">👤 DADOS DO CLIENTE</div>
 
                     <div class="form-row">
                         <div class="form-group">
@@ -189,17 +576,16 @@
 
                     <div class="form-group">
                         <label for="servicos">Serviços Solicitados</label>
-                        <textarea id="servicos" name="servicos" rows="3"></textarea>
+                        <textarea id="servicos" name="servicos" rows="3" placeholder="Ex: Troca de óleo, regulagem de corrente, revisão geral..."></textarea>
                     </div>
                 </form>
             </div>
         </div>
 
-        <!-- ABA ORÇAMENTO -->
+        <!-- Demais abas continuam iguais -->
         <div id="orcamento" class="tab-content">
             <div class="content">
                 <div class="section-title">💰 PEÇAS & SERVIÇOS</div>
-
                 <div class="form-row">
                     <div class="form-group">
                         <label>Tipo:</label>
@@ -211,7 +597,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="form-row">
                     <div class="form-group">
                         <label for="descricaoItem">Descrição</label>
@@ -222,17 +607,11 @@
                         <input type="number" id="valorItem" step="0.01" min="0">
                     </div>
                 </div>
-
                 <button type="button" class="btn-primary" onclick="adicionarItemManual()">➕ Adicionar</button>
-
                 <h4>🔩 Peças</h4>
                 <table style="width:100%; border-collapse:collapse;">
                     <thead>
-                        <tr>
-                            <th>Descrição</th>
-                            <th>Valor</th>
-                            <th>Ações</th>
-                        </tr>
+                        <tr><th>Descrição</th><th>Valor</th><th>Ações</th></tr>
                     </thead>
                     <tbody id="tabelaPecas"></tbody>
                     <tfoot>
@@ -243,15 +622,10 @@
                         </tr>
                     </tfoot>
                 </table>
-
                 <h4>🔧 Serviços</h4>
                 <table style="width:100%; border-collapse:collapse;">
                     <thead>
-                        <tr>
-                            <th>Descrição</th>
-                            <th>Valor</th>
-                            <th>Ações</th>
-                        </tr>
+                        <tr><th>Descrição</th><th>Valor</th><th>Ações</th></tr>
                     </thead>
                     <tbody id="tabelaServicos"></tbody>
                     <tfoot>
@@ -262,37 +636,29 @@
                         </tr>
                     </tfoot>
                 </table>
-
                 <div style="text-align:right; margin-top:20px;">
                     <h3>TOTAL GERAL: <span id="totalGeralFinal">R$ 0,00</span></h3>
                 </div>
-
                 <button class="btn-success" onclick="switchTab('resumo'); atualizarResumoOS()">📄 Ver Resumo</button>
             </div>
         </div>
 
-        <!-- ABA FOTOS -->
         <div id="fotos" class="tab-content">
             <div class="content">
                 <div class="section-title">📸 FOTOS DA MOTO</div>
-                
                 <button class="btn-primary" onclick="iniciarCamera()">📷 Tirar Foto</button>
                 <input type="file" id="uploadFotos" multiple accept="image/*" onchange="adicionarFotos(event)" style="display:none;">
                 <button class="btn-secondary" onclick="document.getElementById('uploadFotos').click()">📁 Galeria</button>
-
                 <div class="camera-container" style="display:none;">
                     <video id="cameraPreview" autoplay playsinline style="width:100%; max-width:400px;"></video>
                     <button class="btn-success" onclick="tirarFoto()" id="btnTirarFoto">📸 Capturar</button>
                     <button class="btn-secondary" onclick="pararCamera()">❌ Cancelar</button>
                 </div>
-
                 <div id="galeriaFotos" class="fotos-grid"></div>
-
                 <button class="btn-danger" onclick="limparFotos()">🗑️ Limpar Fotos</button>
             </div>
         </div>
 
-        <!-- ABA RESUMO -->
         <div id="resumo" class="tab-content">
             <div class="content">
                 <div id="resumoContainer" class="os-paper">
@@ -308,54 +674,38 @@
                             <h3>OS Nº <span id="osNumero"></span></h3>
                         </div>
                     </div>
-
                     <h3>CLIENTE</h3>
                     <p><strong>Nome:</strong> <span id="rNomeCliente"></span></p>
                     <p><strong>Celular:</strong> <span id="rCelular"></span></p>
-
                     <h3>MOTOCICLETA</h3>
                     <p><strong>Modelo:</strong> <span id="rModelo"></span></p>
                     <p><strong>Placa:</strong> <span id="rPlaca"></span></p>
                     <p><strong>KM:</strong> <span id="rKmEntrada"></span></p>
-
                     <h3>SERVIÇOS SOLICITADOS</h3>
                     <p id="rServicos"></p>
-
                     <h3>INSPEÇÃO</h3>
                     <div id="rChecklistBadges"></div>
-
                     <h3>OBSERVAÇÕES</h3>
                     <p id="rObsInspecao"></p>
-
                     <div style="page-break-before:always;"></div>
-
                     <h3>PEÇAS</h3>
                     <table id="rTabelaPecas" style="width:100%;"></table>
                     <p><strong>Total Peças:</strong> <span id="rTotalPecas"></span></p>
-
                     <h3>SERVIÇOS</h3>
                     <table id="rTabelaServicos" style="width:100%;"></table>
                     <p><strong>Total Serviços:</strong> <span id="rTotalServicos"></span></p>
-
                     <h2>TOTAL GERAL: <span id="rTotalGeral"></span></h2>
-
                     <div style="margin-top:50px;">
-                        <div style="display:inline-block; width:45%; text-align:center; border-top:1px solid #000;">
-                            Assinatura Cliente
-                        </div>
-                        <div style="display:inline-block; width:45%; text-align:center; border-top:1px solid #000; margin-left:5%;">
-                            Assinatura Técnico
-                        </div>
+                        <div style="display:inline-block; width:45%; text-align:center; border-top:1px solid #000;">Assinatura Cliente</div>
+                        <div style="display:inline-block; width:45%; text-align:center; border-top:1px solid #000; margin-left:5%;">Assinatura Técnico</div>
                     </div>
                 </div>
-
                 <button class="btn-secondary" onclick="imprimirResumo()">🖨️ Imprimir</button>
                 <button class="btn-success" onclick="gerarPDFResumo()">📥 PDF</button>
                 <button class="btn-primary" onclick="salvarChecklist()">💾 Salvar</button>
             </div>
         </div>
 
-        <!-- ABA HISTÓRICO -->
         <div id="historico" class="tab-content">
             <div class="content">
                 <input type="text" id="searchInput" placeholder="🔍 Buscar..." style="width:100%; padding:10px; margin-bottom:20px;">
@@ -377,5 +727,33 @@
     <script src="resumo.js"></script>
     <script src="form-nav.js"></script>
     <script src="wizard.js"></script>
+    
+    <script>
+        // Função para marcar estado dos botões
+        window.marcacoes = {};
+        
+        function marcarEstado(btn, item, estado) {
+            // Remove ativo de todos os botões do mesmo grupo
+            const grupo = btn.parentElement;
+            Array.from(grupo.children).forEach(b => b.classList.remove('ativo'));
+            
+            // Marca o botão clicado
+            btn.classList.add('ativo');
+            
+            // Armazena a marcação
+            window.marcacoes[item] = estado;
+            
+            // Cria input hidden para envio no form
+            let input = document.getElementById('insp_' + item);
+            if (!input) {
+                input = document.createElement('input');
+                input.type = 'hidden';
+                input.id = 'insp_' + item;
+                input.name = 'inspecao_' + item;
+                document.getElementById('checklistForm').appendChild(input);
+            }
+            input.value = item + ': ' + estado;
+        }
+    </script>
 </body>
 </html>
