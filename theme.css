@@ -2,35 +2,33 @@
    THEME.CSS - CORES DO SISTEMA
    ============================================
    
-   🎨 EDITE AS CORES AQUI:
+   🎨 PALETA ATUAL:
    
-   --color-header: Cor do CABEÇALHO (topo da página)
-   --color-primary: Cor dos BOTÕES, TABS e DESTAQUES
+   Header: BRANCO com letras pretas (clean e profissional)
+   Botões/Tabs: VERMELHO elegante (#c92a2a)
+   Sucesso: VERDE esmeralda
+   Erro: VERMELHO suave
    
-   EXEMPLOS DE CORES:
-   - Azul Escuro: #1e40af
-   - Verde: #059669  
-   - Roxo: #7c3aed
-   - Laranja: #ea580c
-   - Azul Royal: #2563eb
-   - Vinho: #881337
-   - Cinza Escuro: #374151
-   - Preto: #1a202c
+   Para mudar:
+   - Header: edite --color-header e --color-header-text
+   - Botões: edite --color-primary
    
    ============================================ */
 
 :root {
-    /* COR DO HEADER - Mude aqui! */
-    --color-header: #37010f ;
+    /* HEADER BRANCO COM TEXTO ESCURO */
+    --color-header: #ffffff;
+    --color-header-text: #1a202c;
+    --color-header-secondary: #4a5568;
     
-    /* COR PRIMÁRIA (botões, tabs, destaques) - Mude aqui! */
-    --color-primary: #b90422;
+    /* COR PRIMÁRIA - Vermelho elegante */
+    --color-primary: #c92a2a;
     
-    /* Cores do sistema (não precisa mexer) */
-    --color-dark: #222222;
+    /* Cores do sistema */
+    --color-dark: #1a202c;
     --color-light: #ffffff;
-    --color-text: #333333;
-    --color-border: #dddddd;
+    --color-text: #2d3748;
+    --color-border: #e2e8f0;
     --color-success: #10b981;
     --color-error: #ef4444;
     --color-warning: #f59e0b;
