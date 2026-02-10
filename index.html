@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#e41616">
     <title>Checklist Motos - Oficina</title>
     <link rel="stylesheet" href="styles.css">
@@ -26,8 +26,8 @@
         
         /* Botões de Inspeção de 3 Estados */
         .inspecao-item {
-            margin-bottom: 20px;
-            padding: 15px;
+            margin-bottom: 15px;
+            padding: 12px;
             background: #f9f9f9;
             border-radius: 8px;
             border-left: 4px solid #ddd;
@@ -37,35 +37,36 @@
             font-weight: 700;
             font-size: 14px;
             color: #333;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             display: block;
         }
         
         .estado-buttons {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
+            gap: 6px;
         }
         
         .estado-btn {
-            padding: 14px 10px;
+            padding: 12px 8px;
             border: 2px solid #ddd;
             background: white;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 700;
-            font-size: 13px;
+            font-size: 12px;
             transition: all 0.3s ease;
             text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 4px;
+            min-height: 44px;
         }
         
-        .estado-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        .estado-btn:hover, .estado-btn:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
         }
         
         .estado-btn.bom {
@@ -104,19 +105,19 @@
         .inspecao-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 15px;
+            gap: 12px;
         }
         
         /* Botões de Peças Pré-definidas */
         .pecas-rapidas {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 10px;
-            margin: 20px 0;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 8px;
+            margin: 15px 0;
         }
         
-        .peca-btn {
-            padding: 12px;
+        .peca-btn, .servico-btn {
+            padding: 12px 10px;
             background: #f0f0f0;
             border: 2px solid #ddd;
             border-radius: 8px;
@@ -125,44 +126,36 @@
             font-size: 13px;
             transition: all 0.3s ease;
             text-align: center;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        .peca-btn:hover {
+        .peca-btn:active {
             background: var(--color-primary);
             color: white;
             border-color: var(--color-primary);
-            transform: translateY(-2px);
+            transform: scale(0.95);
         }
         
-        .servico-btn {
-            padding: 12px;
-            background: #f0f0f0;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 13px;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-        
-        .servico-btn:hover {
+        .servico-btn:active {
             background: #0056b3;
             color: white;
             border-color: #0056b3;
-            transform: translateY(-2px);
+            transform: scale(0.95);
         }
         
         /* Status de Salvamento */
         .save-status {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
+            gap: 6px;
+            padding: 6px 12px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
-            margin-left: 10px;
+            margin-left: 8px;
         }
         
         .save-status.salvando {
@@ -180,18 +173,114 @@
             color: #721c24;
         }
         
+        /* Otimizações Mobile */
         @media (max-width: 768px) {
+            body {
+                font-size: 14px;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .header {
+                flex-direction: column;
+                text-align: center;
+                padding: 15px;
+            }
+            
+            .header-content {
+                margin-left: 0 !important;
+                margin-top: 10px;
+            }
+            
+            .header-content h1 {
+                font-size: 18px;
+            }
+            
+            .logo-container img {
+                width: 70px !important;
+                height: 70px !important;
+            }
+            
+            .tabs {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .tab-button {
+                padding: 10px 15px;
+                font-size: 12px;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+            
+            .os-info-bar {
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px;
+                text-align: center;
+            }
+            
+            .section-title {
+                font-size: 16px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr !important;
+                gap: 10px;
+            }
+            
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                font-size: 16px;
+                padding: 12px;
+            }
+            
             .estado-buttons {
+                gap: 5px;
+            }
+            
+            .estado-btn {
+                padding: 10px 6px;
+                font-size: 10px;
+                min-height: 44px;
+            }
+            
+            .pecas-rapidas {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
                 gap: 6px;
             }
-            .estado-btn {
-                padding: 12px 8px;
+            
+            .peca-btn, .servico-btn {
+                padding: 10px 8px;
                 font-size: 11px;
             }
-            .logo-container img {
-                width: 80px !important;
-                height: 80px !important;
+            
+            .btn-primary,
+            .btn-secondary,
+            .btn-success,
+            .btn-danger {
+                width: 100%;
+                margin: 5px 0;
             }
+            
+            table {
+                font-size: 11px;
+            }
+            
+            table th,
+            table td {
+                padding: 6px 4px;
+            }
+        }
+        
+        /* Touch targets mínimos de 44px */
+        button, input, select, textarea {
+            min-height: 44px;
+            -webkit-tap-highlight-color: rgba(0,0,0,0.1);
         }
     </style>
 </head>
@@ -232,7 +321,7 @@
             </div>
             <div>
                 <span id="barraFixaOS">-</span>
-                <button class="btn-small btn-secondary" onclick="sincronizarDados()" style="margin-left:15px;">🔄 Sincronizar</button>
+                <button class="btn-small btn-secondary" onclick="sincronizarDados()" style="margin-left:10px;">🔄 Sincronizar</button>
             </div>
         </div>
 
@@ -292,7 +381,6 @@
                                     <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'farol_dianteiro', 'QUEBRADO')">❌ QUEBRADO</button>
                                 </div>
                             </div>
-
                             <div class="inspecao-item">
                                 <span class="inspecao-item-label">Lanterna Traseira</span>
                                 <div class="estado-buttons">
@@ -301,7 +389,6 @@
                                     <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'lanterna_tras', 'QUEBRADO')">❌ QUEBRADO</button>
                                 </div>
                             </div>
-
                             <div class="inspecao-item">
                                 <span class="inspecao-item-label">Setas/Piscas</span>
                                 <div class="estado-buttons">
@@ -310,7 +397,6 @@
                                     <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'setas', 'QUEBRADO')">❌ QUEBRADO</button>
                                 </div>
                             </div>
-
                             <div class="inspecao-item">
                                 <span class="inspecao-item-label">Luz de Freio</span>
                                 <div class="estado-buttons">
@@ -333,7 +419,6 @@
                                     <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'pneu_dianteiro', 'CARECA')">❌ CARECA</button>
                                 </div>
                             </div>
-
                             <div class="inspecao-item">
                                 <span class="inspecao-item-label">Pneu Traseiro</span>
                                 <div class="estado-buttons">
@@ -342,7 +427,6 @@
                                     <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'pneu_traseiro', 'CARECA')">❌ CARECA</button>
                                 </div>
                             </div>
-
                             <div class="inspecao-item">
                                 <span class="inspecao-item-label">Roda Dianteira</span>
                                 <div class="estado-buttons">
@@ -351,7 +435,6 @@
                                     <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'roda_dianteira', 'TRINCADA')">❌ TRINCADA</button>
                                 </div>
                             </div>
-
                             <div class="inspecao-item">
                                 <span class="inspecao-item-label">Roda Traseira</span>
                                 <div class="estado-buttons">
@@ -374,7 +457,6 @@
                                     <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'freio_dianteiro', 'TRAVANDO')">❌ TRAVANDO</button>
                                 </div>
                             </div>
-
                             <div class="inspecao-item">
                                 <span class="inspecao-item-label">Freio Traseiro</span>
                                 <div class="estado-buttons">
@@ -383,7 +465,6 @@
                                     <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'freio_traseiro', 'TRAVANDO')">❌ TRAVANDO</button>
                                 </div>
                             </div>
-
                             <div class="inspecao-item">
                                 <span class="inspecao-item-label">Pastilhas de Freio</span>
                                 <div class="estado-buttons">
@@ -392,7 +473,6 @@
                                     <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'pastilhas', 'ACABADAS')">❌ ACABADAS</button>
                                 </div>
                             </div>
-
                             <div class="inspecao-item">
                                 <span class="inspecao-item-label">Disco de Freio</span>
                                 <div class="estado-buttons">
@@ -415,7 +495,6 @@
                                     <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'corrente', 'RESSECADA')">❌ RESSECADA</button>
                                 </div>
                             </div>
-
                             <div class="inspecao-item">
                                 <span class="inspecao-item-label">Coroa/Pinhão</span>
                                 <div class="estado-buttons">
@@ -424,7 +503,6 @@
                                     <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'coroa_pinhao', 'DENTES QUEBRADOS')">❌ DENTES QUEBRADOS</button>
                                 </div>
                             </div>
-
                             <div class="inspecao-item">
                                 <span class="inspecao-item-label">Pedal de Câmbio</span>
                                 <div class="estado-buttons">
@@ -433,7 +511,6 @@
                                     <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'pedal_cambio', 'QUEBRADO')">❌ QUEBRADO</button>
                                 </div>
                             </div>
-
                             <div class="inspecao-item">
                                 <span class="inspecao-item-label">Embreagem</span>
                                 <div class="estado-buttons">
@@ -456,7 +533,6 @@
                                     <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'bateria', 'DESCARREGADA')">❌ DESCARREGADA</button>
                                 </div>
                             </div>
-
                             <div class="inspecao-item">
                                 <span class="inspecao-item-label">Buzina</span>
                                 <div class="estado-buttons">
@@ -465,7 +541,6 @@
                                     <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'buzina', 'NÃO FUNCIONA')">❌ NÃO FUNCIONA</button>
                                 </div>
                             </div>
-
                             <div class="inspecao-item">
                                 <span class="inspecao-item-label">Painel/Indicadores</span>
                                 <div class="estado-buttons">
@@ -474,7 +549,6 @@
                                     <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'painel', 'APAGADO')">❌ APAGADO</button>
                                 </div>
                             </div>
-
                             <div class="inspecao-item">
                                 <span class="inspecao-item-label">Fiação</span>
                                 <div class="estado-buttons">
@@ -497,7 +571,6 @@
                                     <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'suspensao_diant', 'TRAVADA')">❌ TRAVADA</button>
                                 </div>
                             </div>
-
                             <div class="inspecao-item">
                                 <span class="inspecao-item-label">Suspensão Traseira</span>
                                 <div class="estado-buttons">
@@ -506,7 +579,6 @@
                                     <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'suspensao_tras', 'TRAVADA')">❌ TRAVADA</button>
                                 </div>
                             </div>
-
                             <div class="inspecao-item">
                                 <span class="inspecao-item-label">Guidão/Direção</span>
                                 <div class="estado-buttons">
@@ -515,7 +587,6 @@
                                     <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'guidao', 'TRAVADO')">❌ TRAVADO</button>
                                 </div>
                             </div>
-
                             <div class="inspecao-item">
                                 <span class="inspecao-item-label">Manoplas/Punhos</span>
                                 <div class="estado-buttons">
@@ -538,7 +609,6 @@
                                     <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'retrovisor_esq', 'QUEBRADO')">❌ QUEBRADO</button>
                                 </div>
                             </div>
-
                             <div class="inspecao-item">
                                 <span class="inspecao-item-label">Retrovisor Direito</span>
                                 <div class="estado-buttons">
@@ -547,7 +617,6 @@
                                     <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'retrovisor_dir', 'QUEBRADO')">❌ QUEBRADO</button>
                                 </div>
                             </div>
-
                             <div class="inspecao-item">
                                 <span class="inspecao-item-label">Carenagem/Plásticos</span>
                                 <div class="estado-buttons">
@@ -556,7 +625,6 @@
                                     <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'carenagem', 'QUEBRADO')">❌ QUEBRADO</button>
                                 </div>
                             </div>
-
                             <div class="inspecao-item">
                                 <span class="inspecao-item-label">Banco</span>
                                 <div class="estado-buttons">
@@ -579,7 +647,6 @@
                                     <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'nivel_oleo', 'VAZIO')">❌ VAZIO</button>
                                 </div>
                             </div>
-
                             <div class="inspecao-item">
                                 <span class="inspecao-item-label">Vazamentos</span>
                                 <div class="estado-buttons">
@@ -588,7 +655,6 @@
                                     <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'vazamentos', 'SEVERO')">❌ SEVERO</button>
                                 </div>
                             </div>
-
                             <div class="inspecao-item">
                                 <span class="inspecao-item-label">Escape/Ronco Motor</span>
                                 <div class="estado-buttons">
@@ -597,7 +663,6 @@
                                     <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'escape', 'FURADO')">❌ FURADO</button>
                                 </div>
                             </div>
-
                             <div class="inspecao-item">
                                 <span class="inspecao-item-label">Partida/Funcionamento</span>
                                 <div class="estado-buttons">
@@ -620,7 +685,6 @@
                                     <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'bau', 'NÃO TEM')">❌ NÃO TEM</button>
                                 </div>
                             </div>
-
                             <div class="inspecao-item">
                                 <span class="inspecao-item-label">Protetor de Motor</span>
                                 <div class="estado-buttons">
@@ -629,7 +693,6 @@
                                     <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'protetor_motor', 'NÃO TEM')">❌ NÃO TEM</button>
                                 </div>
                             </div>
-
                             <div class="inspecao-item">
                                 <span class="inspecao-item-label">Suporte Lateral</span>
                                 <div class="estado-buttons">
@@ -638,7 +701,6 @@
                                     <button type="button" class="estado-btn danificado" onclick="marcarEstado(this, 'suporte_lateral', 'QUEBRADO')">❌ QUEBRADO</button>
                                 </div>
                             </div>
-
                             <div class="inspecao-item">
                                 <span class="inspecao-item-label">Suporte Central</span>
                                 <div class="estado-buttons">
@@ -717,17 +779,17 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="descricaoItem">Descrição</label>
-                        <input type="text" id="descricaoItem" placeholder="Ex: Peça ou Serviço" onkeypress="if(event.key==='Enter'){event.preventDefault();document.getElementById('valorItem').focus();}">
+                        <input type="text" id="descricaoItem" placeholder="Digite a descrição" autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <label for="valorItem">Valor (R$)</label>
-                        <input type="number" id="valorItem" step="0.01" min="0" placeholder="0.00" onkeypress="if(event.key==='Enter'){event.preventDefault();adicionarItemManual();}">
+                        <label for="valorItem">Valor (R$) - Enter para adicionar</label>
+                        <input type="number" id="valorItem" step="0.01" min="0" placeholder="0.00" autocomplete="off">
                     </div>
                 </div>
                 
-                <div style="display:flex; gap:10px; margin-bottom:20px;">
-                    <button type="button" class="btn-primary" onclick="adicionarItemManual('peca')">🔩 Adicionar Peça</button>
-                    <button type="button" class="btn-secondary" onclick="adicionarItemManual('servico')">🔧 Adicionar Serviço</button>
+                <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
+                    <button type="button" class="btn-primary" onclick="adicionarItemTipo('peca')">🔩 Adicionar Peça</button>
+                    <button type="button" class="btn-secondary" onclick="adicionarItemTipo('servico')">🔧 Adicionar Serviço</button>
                 </div>
 
                 <h4>🔩 Peças</h4>
@@ -835,7 +897,7 @@
 
         <div id="historico" class="tab-content">
             <div class="content">
-                <input type="text" id="searchInput" placeholder="🔍 Buscar..." style="width:100%; padding:10px; margin-bottom:20px;">
+                <input type="text" id="searchInput" placeholder="🔍 Buscar..." style="width:100%; padding:12px; margin-bottom:20px;">
                 <div id="checklistsList"></div>
                 <div id="emptyMessage" style="text-align:center; padding:40px; display:none;">
                     <p>📋 Nenhum checklist ainda</p>
@@ -856,7 +918,7 @@
     <script src="wizard.js"></script>
     
     <script>
-        // Função para marcar estado dos botões
+        // Marcações de inspeção
         window.marcacoes = {};
         
         function marcarEstado(btn, item, estado) {
@@ -875,8 +937,12 @@
             input.value = item + ': ' + estado;
         }
         
+        // Armazenar tipo de item (peça ou serviço)
+        let tipoItemAtual = 'peca';
+        
         // Função para adicionar peça rápida
         function adicionarPecaRapida(descricao) {
+            tipoItemAtual = 'peca';
             document.getElementById('descricaoItem').value = descricao;
             document.getElementById('valorItem').value = '';
             document.getElementById('valorItem').focus();
@@ -884,31 +950,136 @@
         
         // Função para adicionar serviço rápido
         function adicionarServicoRapido(descricao) {
+            tipoItemAtual = 'servico';
             document.getElementById('descricaoItem').value = descricao;
             document.getElementById('valorItem').value = '';
             document.getElementById('valorItem').focus();
         }
         
-        // Adicionar item manual com Enter
-        function adicionarItemManual(tipo) {
+        // Função para adicionar item com tipo específico
+        function adicionarItemTipo(tipo) {
+            tipoItemAtual = tipo;
+            processarAdicaoItem();
+        }
+        
+        // Processar adição de item
+        function processarAdicaoItem() {
             const desc = document.getElementById('descricaoItem').value.trim();
-            const valor = parseFloat(document.getElementById('valorItem').value) || 0;
+            const valorInput = document.getElementById('valorItem').value;
+            const valor = valorInput === '' ? 0 : parseFloat(valorInput);
             
             if (!desc) {
-                alert('Digite a descrição!');
+                alert('✏️ Digite a descrição!');
+                document.getElementById('descricaoItem').focus();
                 return;
             }
             
-            // Lógica de adicionar à tabela (deve estar implementada em orcamento.js)
-            if (typeof adicionarItem === 'function') {
-                adicionarItem(desc, valor, tipo || 'peca');
-            }
+            // Adicionar à tabela correspondente
+            adicionarNaTabela(desc, valor, tipoItemAtual);
             
-            // Limpar campos
+            // Limpar campos e focar no primeiro
             document.getElementById('descricaoItem').value = '';
             document.getElementById('valorItem').value = '';
             document.getElementById('descricaoItem').focus();
         }
+        
+        // Arrays para armazenar peças e serviços
+        window.pecas = [];
+        window.servicos = [];
+        
+        // Função para adicionar na tabela
+        function adicionarNaTabela(descricao, valor, tipo) {
+            const item = { descricao, valor };
+            
+            if (tipo === 'peca') {
+                window.pecas.push(item);
+                atualizarTabelaPecas();
+            } else {
+                window.servicos.push(item);
+                atualizarTabelaServicos();
+            }
+            
+            atualizarTotais();
+        }
+        
+        // Atualizar tabela de peças
+        function atualizarTabelaPecas() {
+            const tbody = document.getElementById('tabelaPecas');
+            tbody.innerHTML = '';
+            
+            window.pecas.forEach((peca, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${peca.descricao}</td>
+                    <td>R$ ${peca.valor.toFixed(2)}</td>
+                    <td><button class="btn-small btn-danger" onclick="removerPeca(${index})">❌</button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+        
+        // Atualizar tabela de serviços
+        function atualizarTabelaServicos() {
+            const tbody = document.getElementById('tabelaServicos');
+            tbody.innerHTML = '';
+            
+            window.servicos.forEach((servico, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${servico.descricao}</td>
+                    <td>R$ ${servico.valor.toFixed(2)}</td>
+                    <td><button class="btn-small btn-danger" onclick="removerServico(${index})">❌</button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+        
+        // Remover peça
+        function removerPeca(index) {
+            window.pecas.splice(index, 1);
+            atualizarTabelaPecas();
+            atualizarTotais();
+        }
+        
+        // Remover serviço
+        function removerServico(index) {
+            window.servicos.splice(index, 1);
+            atualizarTabelaServicos();
+            atualizarTotais();
+        }
+        
+        // Atualizar totais
+        function atualizarTotais() {
+            const totalPecas = window.pecas.reduce((sum, p) => sum + p.valor, 0);
+            const totalServicos = window.servicos.reduce((sum, s) => sum + s.valor, 0);
+            const totalGeral = totalPecas + totalServicos;
+            
+            document.getElementById('totalPecas').textContent = 'R$ ' + totalPecas.toFixed(2);
+            document.getElementById('totalServicos').textContent = 'R$ ' + totalServicos.toFixed(2);
+            document.getElementById('totalGeralFinal').textContent = 'R$ ' + totalGeral.toFixed(2);
+        }
+        
+        // Event listeners para Enter
+        document.addEventListener('DOMContentLoaded', function() {
+            const descInput = document.getElementById('descricaoItem');
+            const valorInput = document.getElementById('valorItem');
+            
+            // Enter na descrição -> foca no valor
+            descInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    valorInput.focus();
+                }
+            });
+            
+            // Enter no valor -> adiciona item
+            valorInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    processarAdicaoItem();
+                }
+            });
+        });
         
         // Função de salvar na nuvem
         function salvarNaNuvem() {
@@ -917,7 +1088,6 @@
             status.className = 'save-status salvando';
             status.textContent = '⌛ Salvando...';
             
-            // Simular salvamento (implementar com Firebase)
             setTimeout(() => {
                 status.className = 'save-status salvo';
                 status.textContent = '✅ Salvo na nuvem!';
@@ -927,7 +1097,6 @@
                 }, 3000);
             }, 1500);
             
-            // Chamar função real de salvamento se existir
             if (typeof salvarChecklist === 'function') {
                 salvarChecklist();
             }
@@ -940,7 +1109,6 @@
             status.className = 'save-status salvando';
             status.textContent = '🔄 Sincronizando...';
             
-            // Simular sincronização
             setTimeout(() => {
                 status.className = 'save-status salvo';
                 status.textContent = '✅ Sincronizado!';
