@@ -7,8 +7,7 @@
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    background-attachment: fixed;
+    background: #f5f7fa;
     color: #2d3748;
     line-height: 1.6;
     min-height: 100vh;
@@ -20,22 +19,21 @@ body {
     padding: 20px;
     background: white;
     min-height: 100vh;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
 }
 
-/* Header Moderno com Glassmorphism */
+/* Header Moderno */
 .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 30px;
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
-    backdrop-filter: blur(10px);
+    background: var(--color-primary);
     color: white;
-    border-radius: 20px;
+    border-radius: 16px;
     margin-bottom: 25px;
     position: relative;
-    box-shadow: 0 8px 32px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     overflow: hidden;
 }
 
@@ -46,7 +44,7 @@ body {
     right: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
     animation: headerGlow 8s ease-in-out infinite;
 }
 
@@ -58,17 +56,17 @@ body {
 .logo-container img {
     width: 90px;
     height: 90px;
-    border-radius: 20px;
-    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-radius: 16px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
     object-fit: cover;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     position: relative;
     z-index: 1;
 }
 
 .logo-container img:hover {
-    transform: scale(1.05) rotate(5deg);
+    transform: scale(1.08) rotate(3deg);
 }
 
 .header-content {
@@ -82,7 +80,7 @@ body {
     font-size: 28px;
     margin-bottom: 5px;
     font-weight: 700;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
     letter-spacing: -0.5px;
 }
 
@@ -100,13 +98,13 @@ body {
 }
 
 .header-badge {
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
     padding: 10px 20px;
     border-radius: 25px;
     font-weight: 700;
     font-size: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
     position: relative;
     z-index: 1;
     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -141,51 +139,48 @@ body {
 
 @keyframes pulse {
     0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.7; transform: scale(1.1); }
+    50% { opacity: 0.6; transform: scale(1.15); }
 }
 
-/* OS Info Bar Moderno */
+/* OS Info Bar */
 .os-info-bar {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    border: none;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border: 1px solid #e9ecef;
     padding: 16px 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 25px;
-    border-radius: 15px;
+    border-radius: 12px;
     font-size: 14px;
     font-weight: 600;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .os-info-bar > div:last-child {
     font-size: 20px;
     font-weight: 900;
-    background: linear-gradient(135deg, var(--color-primary) 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--color-primary);
     letter-spacing: 1px;
 }
 
-/* Tabs Modernas com Pills */
+/* Tabs Modernas */
 .tabs {
     display: flex;
-    gap: 12px;
+    gap: 8px;
     margin-bottom: 25px;
-    padding: 8px;
+    padding: 6px;
     background: #f8f9fa;
-    border-radius: 15px;
+    border-radius: 12px;
     flex-wrap: wrap;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
 }
 
 .tab-button {
-    padding: 14px 24px;
+    padding: 12px 20px;
     background: transparent;
     border: none;
-    border-radius: 12px;
+    border-radius: 10px;
     cursor: pointer;
     font-weight: 600;
     font-size: 14px;
@@ -203,9 +198,9 @@ body {
     width: 0;
     height: 0;
     border-radius: 50%;
-    background: rgba(102, 126, 234, 0.1);
+    background: rgba(0, 0, 0, 0.05);
     transform: translate(-50%, -50%);
-    transition: width 0.6s, height 0.6s;
+    transition: width 0.5s, height 0.5s;
 }
 
 .tab-button:hover::before {
@@ -215,29 +210,35 @@ body {
 
 .tab-button:hover {
     color: var(--color-primary);
-    transform: translateY(-2px);
+    background: rgba(0, 0, 0, 0.02);
 }
 
 .tab-button.active {
-    background: linear-gradient(135deg, var(--color-primary) 0%, #764ba2 100%);
+    background: var(--color-primary);
     color: white;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
 }
 
-/* Tab Content */
+/* Tab Content com Animação */
 .tab-content {
     display: none;
-    animation: fadeIn 0.5s ease;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
 }
 
 .tab-content.active {
     display: block;
+    animation: fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .content {
@@ -251,50 +252,52 @@ body {
     margin-bottom: 20px;
     font-weight: 500;
     display: none;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     border-left: 4px solid;
+    animation: slideInDown 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .alert.show {
     display: block;
-    animation: slideInDown 0.4s ease;
 }
 
 @keyframes slideInDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .alert-success {
-    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    background: #d4edda;
     color: #155724;
-    border-left-color: #28a745;
+    border-left-color: var(--color-success);
 }
 
 .alert-error {
-    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+    background: #f8d7da;
     color: #721c24;
-    border-left-color: #dc3545;
+    border-left-color: var(--color-error);
 }
 
 .alert-info {
-    background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+    background: #d1ecf1;
     color: #0c5460;
     border-left-color: #17a2b8;
 }
 
-/* Section Title Moderno */
+/* Section Title */
 .section-title {
     font-size: 20px;
-    font-weight: 800;
-    background: linear-gradient(135deg, var(--color-primary) 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-weight: 700;
+    color: var(--color-primary);
     margin: 30px 0 20px 0;
     padding-bottom: 12px;
-    border-bottom: 3px solid;
-    border-image: linear-gradient(90deg, var(--color-primary), #764ba2) 1;
+    border-bottom: 3px solid var(--color-primary);
     position: relative;
 }
 
@@ -305,7 +308,7 @@ body {
     left: 0;
     width: 60px;
     height: 3px;
-    background: linear-gradient(90deg, var(--color-primary), #764ba2);
+    background: var(--color-primary);
     border-radius: 3px;
 }
 
@@ -336,12 +339,12 @@ body {
 .form-group input,
 .form-group select,
 .form-group textarea {
-    padding: 14px 16px;
+    padding: 12px 16px;
     border: 2px solid #e2e8f0;
-    border-radius: 12px;
+    border-radius: 10px;
     font-size: 14px;
     font-family: inherit;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     background: #f7fafc;
 }
 
@@ -351,8 +354,8 @@ body {
     outline: none;
     border-color: var(--color-primary);
     background: white;
-    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-    transform: translateY(-2px);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+    transform: translateY(-1px);
 }
 
 .form-group textarea {
@@ -360,13 +363,18 @@ body {
     min-height: 100px;
 }
 
-/* Equipment Section Moderno */
+/* Equipment Section */
 .equip-section {
     margin-bottom: 30px;
     padding: 20px;
-    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-    border-radius: 15px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    background: #fafbfc;
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.equip-section:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .equip-section-title {
@@ -375,34 +383,35 @@ body {
     color: #2d3748;
     margin-bottom: 15px;
     padding: 12px 16px;
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    background: white;
     border-left: 4px solid var(--color-primary);
     border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-/* Buttons Modernos com Hover Effects */
+/* Buttons Modernos com Animações */
 .btn-primary,
 .btn-secondary,
 .btn-success,
 .btn-danger,
 .btn-small {
-    padding: 14px 28px;
+    padding: 12px 24px;
     border: none;
-    border-radius: 12px;
+    border-radius: 10px;
     font-weight: 600;
     font-size: 14px;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     margin: 5px;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
-.btn-primary::before,
-.btn-secondary::before,
-.btn-success::before,
-.btn-danger::before {
+.btn-primary::after,
+.btn-secondary::after,
+.btn-success::after,
+.btn-danger::after {
     content: '';
     position: absolute;
     top: 50%;
@@ -410,57 +419,63 @@ body {
     width: 0;
     height: 0;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.4);
     transform: translate(-50%, -50%);
     transition: width 0.6s, height 0.6s;
 }
 
-.btn-primary:hover::before,
-.btn-secondary:hover::before,
-.btn-success:hover::before,
-.btn-danger:hover::before {
-    width: 400px;
-    height: 400px;
+.btn-primary:active::after,
+.btn-secondary:active::after,
+.btn-success:active::after,
+.btn-danger:active::after {
+    width: 300px;
+    height: 300px;
+    transition: width 0.1s, height 0.1s;
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--color-primary) 0%, #764ba2 100%);
+    background: var(--color-primary);
     color: white;
 }
 
 .btn-primary:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 25px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+}
+
+.btn-primary:active {
+    transform: translateY(-1px);
 }
 
 .btn-secondary {
-    background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+    background: #6c757d;
     color: white;
 }
 
 .btn-secondary:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 25px rgba(108, 117, 125, 0.4);
+    box-shadow: 0 6px 20px rgba(108, 117, 125, 0.3);
+    background: #5a6268;
 }
 
 .btn-success {
-    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    background: var(--color-success);
     color: white;
 }
 
 .btn-success:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 25px rgba(40, 167, 69, 0.4);
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.3);
 }
 
 .btn-danger {
-    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    background: var(--color-error);
     color: white;
 }
 
 .btn-danger:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 25px rgba(220, 53, 69, 0.4);
+    box-shadow: 0 6px 20px rgba(220, 53, 69, 0.3);
 }
 
 .btn-small {
@@ -483,17 +498,19 @@ table {
     margin: 20px 0;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e9ecef;
 }
 
 table th,
 table td {
     padding: 14px;
     text-align: left;
+    transition: all 0.3s ease;
 }
 
 table th {
-    background: linear-gradient(135deg, var(--color-primary) 0%, #764ba2 100%);
+    background: var(--color-primary);
     color: white;
     font-weight: 700;
     text-transform: uppercase;
@@ -511,13 +528,13 @@ table tbody tr:nth-child(even) {
 }
 
 table tbody tr:hover {
-    background: rgba(102, 126, 234, 0.05);
+    background: #f0f4f8;
     transform: scale(1.01);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 table tfoot td {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    background: #f8f9fa;
     font-weight: 700;
     border-top: 2px solid var(--color-primary);
 }
@@ -528,10 +545,11 @@ table tfoot td {
     text-align: center;
     padding: 20px;
     background: #f8f9fa;
-    border-radius: 15px;
+    border-radius: 12px;
+    border: 2px dashed #dee2e6;
 }
 
-/* Fotos Grid Moderno */
+/* Fotos Grid */
 .fotos-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -541,15 +559,15 @@ table tfoot td {
 
 .foto-item {
     position: relative;
-    border-radius: 15px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .foto-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
 .foto-item img {
@@ -563,15 +581,14 @@ table tfoot td {
     transform: scale(1.1);
 }
 
-/* OS Paper - Estilos para PDF */
+/* OS Paper */
 .os-paper {
     background: white;
     padding: 25px;
     position: relative;
-    border-radius: 15px;
+    border-radius: 12px;
 }
 
-/* Cabeçalho que se repete */
 .os-header-repeat {
     display: flex;
     justify-content: space-between;
@@ -585,7 +602,7 @@ table tfoot td {
     width: 90px;
     height: 90px;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .os-header-info {
@@ -597,7 +614,7 @@ table tfoot td {
     margin: 0;
     font-size: 20px;
     color: var(--color-primary);
-    font-weight: 800;
+    font-weight: 700;
 }
 
 .os-header-info p {
@@ -614,10 +631,9 @@ table tfoot td {
     margin: 0;
     font-size: 18px;
     color: var(--color-primary);
-    font-weight: 800;
+    font-weight: 700;
 }
 
-/* Rodapé que se repete */
 .os-footer-repeat {
     position: fixed;
     bottom: 0;
@@ -638,7 +654,6 @@ table tfoot td {
     font-weight: 700;
 }
 
-/* Conteúdo da OS */
 .os-section {
     margin-bottom: 25px;
     page-break-inside: avoid;
@@ -664,7 +679,6 @@ table tfoot td {
     font-weight: 600;
 }
 
-/* Badges Modernos */
 .os-badges-area {
     display: flex;
     flex-wrap: wrap;
@@ -677,20 +691,19 @@ table tfoot td {
     border-radius: 20px;
     font-size: 11px;
     font-weight: 600;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .os-badge.ok {
-    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    background: #d4edda;
     color: #155724;
 }
 
 .os-badge.no {
-    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+    background: #f8d7da;
     color: #721c24;
 }
 
-/* Tabelas no PDF */
 .os-table {
     width: 100%;
     border-collapse: collapse;
@@ -716,13 +729,13 @@ table tfoot td {
     background: #f0f0f0;
 }
 
-/* Total Geral */
 .os-total-geral {
     text-align: right;
     margin: 25px 0;
     padding: 15px;
-    background: linear-gradient(135deg, rgba(40, 167, 69, 0.1) 0%, rgba(32, 201, 151, 0.1) 100%);
+    background: #f8f9fa;
     border-radius: 12px;
+    border-left: 4px solid var(--color-success);
 }
 
 .os-total-geral h2 {
@@ -732,7 +745,6 @@ table tfoot td {
     color: var(--color-success);
 }
 
-/* Assinaturas */
 .os-assinaturas {
     display: flex;
     justify-content: space-around;
@@ -749,7 +761,6 @@ table tfoot td {
     color: #666;
 }
 
-/* Quebra de página */
 .page-break {
     page-break-before: always;
     margin-top: 40px;
@@ -769,25 +780,25 @@ table tfoot td {
 .search-box input:focus {
     outline: none;
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
 }
 
 .checklist-item {
     border: 2px solid #e2e8f0;
     padding: 20px;
     margin-bottom: 20px;
-    border-radius: 15px;
+    border-radius: 12px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     background: white;
 }
 
 .checklist-item:hover {
     border-color: var(--color-primary);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
 }
 
 .checklist-actions {
@@ -853,7 +864,7 @@ table tfoot td {
     }
 }
 
-/* Mobile Responsivo */
+/* Mobile */
 @media (max-width: 768px) {
     body {
         background: white;
@@ -861,6 +872,7 @@ table tfoot td {
     
     .container {
         box-shadow: none;
+        padding: 10px;
     }
     
     .form-row {
@@ -876,6 +888,10 @@ table tfoot td {
     .header-content {
         margin-left: 0;
         margin-top: 15px;
+    }
+    
+    .header-content h1 {
+        font-size: 22px;
     }
     
     .tabs {
