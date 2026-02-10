@@ -410,52 +410,110 @@ table th {
     border-radius: 8px;
 }
 
-/* OS Paper */
+/* OS Paper - Estilos para PDF */
 .os-paper {
     background: white;
-    padding: 30px;
+    padding: 20px;
+    position: relative;
 }
 
-.os-header {
+/* Cabeçalho que se repete em todas as páginas */
+.os-header-repeat {
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 3px solid var(--color-primary);
-    padding-bottom: 15px;
-    margin-bottom: 20px;
-}
-
-.os-box {
-    background: #f9f9f9;
-    padding: 15px;
-    border-radius: 8px;
+    padding-bottom: 10px;
     margin-bottom: 15px;
 }
 
-.os-box-title {
+.os-header-repeat img {
+    width: 80px;
+    height: 80px;
+}
+
+.os-header-info {
+    flex: 1;
+    margin: 0 15px;
+}
+
+.os-header-info h2 {
+    margin: 0;
+    font-size: 18px;
+    color: var(--color-primary);
+}
+
+.os-header-info p {
+    margin: 2px 0;
+    font-size: 11px;
+    color: #666;
+}
+
+.os-number {
+    text-align: right;
+}
+
+.os-number h3 {
+    margin: 0;
+    font-size: 16px;
+    color: var(--color-primary);
+}
+
+/* Rodapé que se repete em todas as páginas */
+.os-footer-repeat {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px 20px;
+    border-top: 2px solid var(--color-primary);
+    background: white;
+    text-align: center;
+    font-size: 10px;
+    color: #666;
+}
+
+.os-footer-repeat strong {
+    color: var(--color-primary);
+    font-size: 11px;
+}
+
+/* Conteúdo da OS */
+.os-section {
+    margin-bottom: 20px;
+    page-break-inside: avoid;
+}
+
+.os-section h3 {
+    font-size: 14px;
     font-weight: 700;
     color: var(--color-primary);
-    margin-bottom: 10px;
-    border-bottom: 2px solid var(--color-primary);
+    margin-bottom: 8px;
     padding-bottom: 5px;
+    border-bottom: 2px solid var(--color-primary);
 }
 
-.os-grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
+.os-section p {
+    margin: 5px 0;
+    font-size: 12px;
 }
 
+.os-section strong {
+    color: #333;
+}
+
+/* Badges de Inspeção */
 .os-badges-area {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
+    margin-top: 10px;
 }
 
 .os-badge {
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 11px;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 10px;
     font-weight: 600;
 }
 
@@ -469,56 +527,59 @@ table th {
     color: #721c24;
 }
 
-.os-table th,
-.os-table td {
-    padding: 6px;
-    font-size: 11px;
+/* Tabelas no PDF */
+.os-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
 }
 
-.os-subtotal-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    background: #f7f7f7;
-    border-radius: 6px;
-    margin-top: 10px;
+.os-table th,
+.os-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    font-size: 11px;
+    text-align: left;
+}
+
+.os-table th {
+    background: #f8f9fa;
     font-weight: 700;
 }
 
-.os-subtotal-pecas span:last-child {
-    color: #e41616;
+.os-table tfoot td {
+    font-weight: 700;
+    background: #f0f0f0;
 }
 
-.os-subtotal-servicos span:last-child {
-    color: #0056b3;
-}
-
-.os-total-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 15px;
-    background: #eee;
-    border-radius: 8px;
+/* Total Geral */
+.os-total-geral {
+    text-align: right;
     margin: 20px 0;
+    font-size: 16px;
     font-weight: 800;
-}
-
-.os-total-value {
     color: var(--color-success);
-    font-size: 18px;
 }
 
+/* Assinaturas */
 .os-assinaturas {
     display: flex;
     justify-content: space-around;
-    margin: 50px 0 20px 0;
+    margin-top: 60px;
 }
 
 .os-assina-box {
     width: 40%;
     text-align: center;
     border-top: 2px solid #333;
-    padding-top: 10px;
+    padding-top: 8px;
+    font-size: 11px;
+}
+
+/* Quebra de página */
+.page-break {
+    page-break-before: always;
+    margin-top: 30px;
 }
 
 /* Histórico */
@@ -545,21 +606,69 @@ table th {
     gap: 10px;
 }
 
-/* Print */
+/* Print - Configurações de impressão */
 @media print {
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    
     .header,
     .tabs,
     .os-info-bar,
     .action-buttons,
-    button {
+    button,
+    .btn-primary,
+    .btn-secondary,
+    .btn-success,
+    .btn-danger {
         display: none !important;
+    }
+    
+    .os-paper {
+        padding: 15mm;
+    }
+    
+    /* Cabeçalho fixo no topo de cada página */
+    .os-header-repeat {
+        position: running(header);
+    }
+    
+    /* Rodapé fixo no final de cada página */
+    .os-footer-repeat {
+        position: running(footer);
+    }
+    
+    @page {
+        margin-top: 120px;
+        margin-bottom: 80px;
+        margin-left: 15mm;
+        margin-right: 15mm;
+        
+        @top-center {
+            content: element(header);
+        }
+        
+        @bottom-center {
+            content: element(footer);
+        }
+    }
+    
+    /* Evita quebra de página dentro de seções */
+    .os-section,
+    .os-table {
+        page-break-inside: avoid;
+    }
+    
+    /* Força quebra de página onde especificado */
+    .page-break {
+        page-break-before: always;
     }
 }
 
 /* Mobile */
 @media (max-width: 768px) {
-    .form-row,
-    .os-grid-2 {
+    .form-row {
         grid-template-columns: 1fr;
     }
     
@@ -569,5 +678,23 @@ table th {
     
     .tabs {
         flex-direction: column;
+    }
+    
+    .os-header-repeat {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .os-header-info {
+        margin: 10px 0;
+    }
+    
+    .os-assinaturas {
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .os-assina-box {
+        width: 100%;
     }
 }
