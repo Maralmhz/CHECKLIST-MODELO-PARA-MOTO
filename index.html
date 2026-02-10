@@ -846,45 +846,82 @@
             </div>
         </div>
 
-        <div id="resumo" class="tab-content">
+                <div id="resumo" class="tab-content">
             <div class="content">
                 <div id="resumoContainer" class="os-paper">
-                    <div class="os-header">
-                        <img id="logoResumo" src="logo.png" alt="Logo" style="width:100px; height:100px; object-fit:contain; background:white; padding:5px; border-radius:8px;">
-                        <div>
+
+                    <!-- CABEÇALHO QUE SE REPETE -->
+                    <div class="os-header-repeat">
+                        <img id="logoResumo" src="logo.png" alt="Logo">
+                        <div class="os-header-info">
                             <h2 id="nomeOficinaResumo">OFICINA DE MOTOS</h2>
                             <p id="enderecoOficinaResumo"></p>
                             <p id="telefoneOficinaResumo"></p>
                             <p id="cnpjOficinaResumo"></p>
                         </div>
-                        <div>
+                        <div class="os-number">
                             <h3>OS Nº <span id="osNumero"></span></h3>
                         </div>
                     </div>
-                    <h3>CLIENTE</h3>
-                    <p><strong>Nome:</strong> <span id="rNomeCliente"></span></p>
-                    <p><strong>Celular:</strong> <span id="rCelular"></span></p>
-                    <h3>MOTOCICLETA</h3>
-                    <p><strong>Modelo:</strong> <span id="rModelo"></span></p>
-                    <p><strong>Placa:</strong> <span id="rPlaca"></span></p>
-                    <p><strong>KM:</strong> <span id="rKmEntrada"></span></p>
-                    <h3>SERVIÇOS SOLICITADOS</h3>
-                    <p id="rServicos"></p>
-                    <h3>INSPEÇÃO</h3>
-                    <div id="rChecklistBadges"></div>
-                    <h3>OBSERVAÇÕES</h3>
-                    <p id="rObsInspecao"></p>
-                    <div style="page-break-before:always;"></div>
-                    <h3>PEÇAS</h3>
-                    <table id="rTabelaPecas" style="width:100%;"></table>
-                    <p><strong>Total Peças:</strong> <span id="rTotalPecas"></span></p>
-                    <h3>SERVIÇOS</h3>
-                    <table id="rTabelaServicos" style="width:100%;"></table>
-                    <p><strong>Total Serviços:</strong> <span id="rTotalServicos"></span></p>
-                    <h2>TOTAL GERAL: <span id="rTotalGeral"></span></h2>
-                    <div style="margin-top:50px;">
-                        <div style="display:inline-block; width:45%; text-align:center; border-top:1px solid #000;">Assinatura Cliente</div>
-                        <div style="display:inline-block; width:45%; text-align:center; border-top:1px solid #000; margin-left:5%;">Assinatura Técnico</div>
+
+                    <!-- RODAPÉ QUE SE REPETE -->
+                    <div class="os-footer-repeat">
+                        <strong id="nomeOficinaFooter">OFICINA DE MOTOS</strong> | 
+                        <span id="cnpjOficinaFooter">CNPJ: 00.000.000/0000-00</span>
+                    </div>
+
+                    <!-- PÁGINA 1 - DADOS E INSPEÇÃO -->
+                    <div class="os-section">
+                        <h3>CLIENTE</h3>
+                        <p><strong>Nome:</strong> <span id="rNomeCliente"></span></p>
+                        <p><strong>Celular:</strong> <span id="rCelular"></span></p>
+                    </div>
+
+                    <div class="os-section">
+                        <h3>MOTOCICLETA</h3>
+                        <p><strong>Modelo:</strong> <span id="rModelo"></span></p>
+                        <p><strong>Placa:</strong> <span id="rPlaca"></span></p>
+                        <p><strong>KM:</strong> <span id="rKmEntrada"></span></p>
+                    </div>
+
+                    <div class="os-section">
+                        <h3>SERVIÇOS SOLICITADOS</h3>
+                        <p id="rServicos"></p>
+                    </div>
+
+                    <div class="os-section">
+                        <h3>INSPEÇÃO</h3>
+                        <div id="rChecklistBadges" class="os-badges-area"></div>
+                    </div>
+
+                    <div class="os-section">
+                        <h3>OBSERVAÇÕES</h3>
+                        <p id="rObsInspecao"></p>
+                    </div>
+
+                    <!-- QUEBRA DE PÁGINA -->
+                    <div class="page-break"></div>
+
+                    <!-- PÁGINA 2 - PEÇAS E SERVIÇOS -->
+                    <div class="os-section">
+                        <h3>PEÇAS</h3>
+                        <table id="rTabelaPecas" class="os-table"></table>
+                        <p><strong>Total Peças:</strong> <span id="rTotalPecas"></span></p>
+                    </div>
+
+                    <div class="os-section">
+                        <h3>SERVIÇOS</h3>
+                        <table id="rTabelaServicos" class="os-table"></table>
+                        <p><strong>Total Serviços:</strong> <span id="rTotalServicos"></span></p>
+                    </div>
+
+                    <div class="os-total-geral">
+                        <h2>TOTAL GERAL: <span id="rTotalGeral"></span></h2>
+                    </div>
+
+                    <div class="os-assinaturas">
+                        <div class="os-assina-box">Assinatura Cliente</div>
+                        <div class="os-assina-box">Assinatura Técnico</div>
                     </div>
                 </div>
 
@@ -894,7 +931,6 @@
                 </div>
             </div>
         </div>
-
         <div id="historico" class="tab-content">
             <div class="content">
                 <input type="text" id="searchInput" placeholder="🔍 Buscar..." style="width:100%; padding:12px; margin-bottom:20px;">
