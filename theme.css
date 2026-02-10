@@ -1,10 +1,33 @@
+/* ============================================
+   THEME.CSS - CORES DO SISTEMA
+   ============================================
+   
+   🎨 EDITE AS CORES AQUI:
+   
+   Para trocar a cor principal do header, tabs, botões:
+   Mude o valor de --color-primary abaixo
+   
+   EXEMPLOS DE CORES:
+   - Azul Escuro: #1e40af
+   - Verde: #059669  
+   - Roxo: #7c3aed
+   - Laranja: #ea580c
+   - Azul Royal: #2563eb
+   - Vinho: #881337
+   - Cinza Escuro: #374151
+   
+   ============================================ */
+
 :root {
+    /* COR PRINCIPAL - Mude aqui! */
     --color-primary: #e41616;
+    
+    /* Cores do sistema (não precisa mexer) */
     --color-dark: #222222;
     --color-light: #ffffff;
     --color-text: #333333;
     --color-border: #dddddd;
-    --color-success: #27ae60;
-    --color-error: #e74c3c;
-    --color-warning: #f39c12;
+    --color-success: #10b981;
+    --color-error: #ef4444;
+    --color-warning: #f59e0b;
 }
