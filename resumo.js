@@ -23,38 +23,24 @@
     const logoSrc = document.getElementById('logo-oficina')?.src;
     if (logoSrc) document.getElementById('logoResumo').src = logoSrc;
 
-    document.getElementById('nomeOficinaResumo').textContent = document.getElementById('nome-oficina')?.textContent || 'OFICINA';
-    document.getElementById('enderecoOficinaResumo').textContent = document.getElementById('endereco-oficina')?.textContent || '';
-    document.getElementById('telefoneOficinaResumo').textContent = document.getElementById('telefone-oficina')?.textContent || '';
-    document.getElementById('cnpjOficinaResumo').textContent = document.getElementById('cnpj-oficina')?.textContent || 'CNPJ da oficina';
+    const nomeOficina = document.getElementById('nome-oficina')?.textContent || 'OFICINA';
+    const enderecoOficina = document.getElementById('endereco-oficina')?.textContent || '';
+    const telefoneOficina = document.getElementById('telefone-oficina')?.textContent || '';
+    const cnpjOficina = document.getElementById('cnpj-oficina')?.textContent || 'CNPJ da oficina';
+
+    document.getElementById('nomeOficinaResumo').textContent = nomeOficina;
+    document.getElementById('enderecoOficinaResumo').textContent = enderecoOficina;
+    document.getElementById('telefoneOficinaResumo').textContent = telefoneOficina;
+    document.getElementById('cnpjOficinaResumo').textContent = cnpjOficina;
 
     document.getElementById('osNumero').textContent = gerarNumeroOS();
 
-    const logoResumo2 = document.getElementById('logoResumo2');
-    const nomeOficinaResumo2 = document.getElementById('nomeOficinaResumo2');
-    const enderecoOficinaResumo2 = document.getElementById('enderecoOficinaResumo2');
-    const telefoneOficinaResumo2 = document.getElementById('telefoneOficinaResumo2');
-    const cnpjOficinaResumo2 = document.getElementById('cnpjOficinaResumo2');
-    const osNumero2 = document.getElementById('osNumero2');
+    // Atualizar rodapé
+    const nomeFooter = document.getElementById('nomeOficinaFooter');
+    const cnpjFooter = document.getElementById('cnpjOficinaFooter');
 
-    if (logoResumo2 && document.getElementById('logoResumo')) {
-      logoResumo2.src = document.getElementById('logoResumo').src;
-    }
-    if (nomeOficinaResumo2 && document.getElementById('nomeOficinaResumo')) {
-      nomeOficinaResumo2.textContent = document.getElementById('nomeOficinaResumo').textContent;
-    }
-    if (enderecoOficinaResumo2 && document.getElementById('enderecoOficinaResumo')) {
-      enderecoOficinaResumo2.textContent = document.getElementById('enderecoOficinaResumo').textContent;
-    }
-    if (telefoneOficinaResumo2 && document.getElementById('telefoneOficinaResumo')) {
-      telefoneOficinaResumo2.textContent = document.getElementById('telefoneOficinaResumo').textContent;
-    }
-    if (cnpjOficinaResumo2 && document.getElementById('cnpjOficinaResumo')) {
-      cnpjOficinaResumo2.textContent = document.getElementById('cnpjOficinaResumo').textContent;
-    }
-    if (osNumero2 && document.getElementById('osNumero')) {
-      osNumero2.textContent = document.getElementById('osNumero').textContent;
-    }
+    if (nomeFooter) nomeFooter.textContent = nomeOficina;
+    if (cnpjFooter) cnpjFooter.textContent = cnpjOficina;
 
     // Dados do cliente
     document.getElementById('rNomeCliente').textContent = document.getElementById('nomecliente')?.value || '-';
